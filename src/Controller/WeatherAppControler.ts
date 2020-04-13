@@ -1,4 +1,4 @@
-import WeatherAppModel from "../Models/WeatherAppModel";
+import WeatherAppModel from "../Models/WeatherAppModel.js";
 import WeatherAppView from "../View/WeatherAppView.js";
 
 /**
@@ -13,6 +13,10 @@ export default class WeatherAppController {
   //#region Properties
   public get model() {
     return this._model;
+  }
+
+  public get view() {
+    return this._view;
   }
   //#endregion Properties
 
