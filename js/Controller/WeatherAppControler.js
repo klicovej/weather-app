@@ -14,4 +14,7 @@ export default class WeatherAppController {
     get model() {
         return this._model;
     }
+    get view() {
+        return this._view;
+    }
 }

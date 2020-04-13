@@ -37,10 +37,8 @@ export default class FiveDayForecast {
      */
     _getForecastsWithoutHours(forecastsArr) {
         return forecastsArr.map((forecast) => {
-            const forecastWithoutHours = Object.assign({}, forecast);
-            const date = new Date(forecast.date);
-            forecastWithoutHours.date = new Date(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
-            return forecastWithoutHours;
+            forecast.date = new Date(`${forecast.date.getFullYear()}-${forecast.date.getMonth() + 1}-${forecast.date.getDate()}`);
+            return forecast;
         });
     }
 }
