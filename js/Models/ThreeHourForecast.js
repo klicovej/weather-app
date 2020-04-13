@@ -19,4 +19,9 @@ export class ThreeHourForecast {
     set date(date) {
         this._date = date;
     }
+    //#endregion Constructors
+    //#region Methods
+    getDayName() {
+        return new Intl.DateTimeFormat("cs-CZ", { weekday: "long" }).format(this.date);
+    }
 }

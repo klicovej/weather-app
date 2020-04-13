@@ -27,4 +27,10 @@ export class ThreeHourForecast {
     this._date = new Date(date);
   }
   //#endregion Constructors
+
+  //#region Methods
+  public getDayName(): string {
+    return new Intl.DateTimeFormat("cs-CZ", { weekday: "long" }).format(this.date);
+  }
+  //#endregion
 }
