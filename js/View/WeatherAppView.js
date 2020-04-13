@@ -11,7 +11,7 @@ export default class WeatherAppView {
     //#endregion Constructors
     //#region Methods
     /**
-     * Metoda vykreslí předaná data
+     * Vykreslí předaná data
      */
     render() {
         const listDiv = document.getElementById("list");

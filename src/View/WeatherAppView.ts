@@ -19,7 +19,7 @@ export default class WeatherAppView {
 
   //#region Methods
   /**
-   * Metoda vykreslí předaná data
+   * Vykreslí předaná data
    */
   public render() {
     const listDiv = document.getElementById("list");
