@@ -7,28 +7,30 @@ export default class WeatherAppView {
     constructor(dataToView, city) {
         this._dataToView = dataToView;
         this._city = city;
+        this._divElement = document.createElement("div");
+        const h1Node = document.createElement("h1");
+        const h1TextNode = document.createTextNode(this._city.name);
+        h1Node.appendChild(h1TextNode);
+        this._divElement.appendChild(h1Node);
+        const cityNameInput = document.createElement("input");
+        cityNameInput.placeholder = "Your city name";
+        cityNameInput.type = "text";
+        cityNameInput.id = "city-name";
+        this._divElement.appendChild(cityNameInput);
+        const searchButton = document.createElement("button");
+        searchButton.type = "Button";
+        searchButton.textContent = "Search";
+        searchButton.id = "search-button";
+        this._divElement.appendChild(searchButton);
+        document.getElementsByTagName("body")[0].appendChild(this._divElement);
+        this._render();
     }
     //#endregion Constructors
     //#region Methods
     /**
      * Vykreslí předaná data
      */
-    render() {
-        const cityNameInput = document.createElement("input");
-        cityNameInput.placeholder = "Your city name";
-        cityNameInput.type = "text";
-        cityNameInput.name = "cityName";
-        const searchButton = document.createElement("button");
-        searchButton.type = "Button";
-        searchButton.textContent = "Search";
-        const divElement = document.createElement("div");
-        const h1Node = document.createElement("h1");
-        const h1TextNode = document.createTextNode(this._city.name);
-        document.getElementsByTagName("body")[0].appendChild(divElement);
-        divElement.appendChild(cityNameInput);
-        divElement.appendChild(searchButton);
-        h1Node.appendChild(h1TextNode);
-        divElement.appendChild(h1Node);
+    _render() {
         const ulNode = document.createElement("ul");
         this._dataToView.forEach((forecast) => {
             const liNode = document.createElement("li");
@@ -36,6 +38,6 @@ export default class WeatherAppView {
             liNode.appendChild(textNode);
             ulNode.appendChild(liNode);
         });
-        divElement.appendChild(ulNode);
+        this._divElement.appendChild(ulNode);
     }
 }

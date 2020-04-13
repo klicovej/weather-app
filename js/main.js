@@ -10,6 +10,5 @@ async function createWeatherApp(url) {
     const model = new WeatherAppModel(url);
     await model.initialize();
     const controller = new WeatherAppController(model);
-    controller.view.render();
 }
 createWeatherApp(RESOURCE_URL);
