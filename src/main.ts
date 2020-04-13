@@ -16,7 +16,8 @@ async function createWeatherApp(url: string) {
   await model.initialize();
 
   const controller = new WeatherAppController(model);
-  controller.model.forecast.getForecastsWithHighestTempForEveryDay().forEach((forecast) => console.log(forecast));
+  //controller.model.forecast.getForecastsWithHighestTempForEveryDay().forEach((forecast) => console.log(forecast));
+  controller.view.render();
 }
 
 createWeatherApp(RESOURCE_URL);
