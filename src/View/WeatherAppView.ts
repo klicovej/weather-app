@@ -22,11 +22,26 @@ export default class WeatherAppView {
    * Vykreslí předaná data
    */
   public render() {
-    const listDiv = document.getElementById("list");
+    const cityNameInput = document.createElement("input");
+    cityNameInput.placeholder = "Your city name";
+    cityNameInput.type = "text";
+    cityNameInput.name = "cityName";
+
+    const searchButton = document.createElement("button");
+    searchButton.type = "Button";
+    searchButton.textContent = "Search";
+
+    const divElement = document.createElement("div");
     const h1Node = document.createElement("h1");
     const h1TextNode = document.createTextNode(this._city.name);
+
+    document.getElementsByTagName("body")[0].appendChild(divElement);
+
+    divElement.appendChild(cityNameInput);
+    divElement.appendChild(searchButton);
+
     h1Node.appendChild(h1TextNode);
-    listDiv.appendChild(h1Node);
+    divElement.appendChild(h1Node);
 
     const ulNode = document.createElement("ul");
 
@@ -39,7 +54,7 @@ export default class WeatherAppView {
       ulNode.appendChild(liNode);
     });
 
-    listDiv.appendChild(ulNode);
+    divElement.appendChild(ulNode);
   }
   //#endregion Methods
 }
