@@ -13,6 +13,10 @@ export default class WeatherAppModel {
   get forecast() {
     return this._forecast;
   }
+
+  set url(url: string) {
+    this._url = url;
+  }
   //#endregion Properties
 
   //#region Constructors
