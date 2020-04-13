@@ -7,7 +7,7 @@ export default class WeatherAppController {
     //#region Constructors
     constructor(model) {
         this._model = model;
-        this._view = new WeatherAppView(this._model.forecast.getForecastsWithHighestTempForEveryDay());
+        this._view = new WeatherAppView(this._model.forecast.getForecastsWithHighestTempForEveryDay(), this._model.forecast.city);
     }
     //#endregion Fields
     //#region Properties

@@ -1,4 +1,5 @@
 import { ThreeHourForecast } from "../Models/ThreeHourForecast.js";
+import { City } from "../Models/City.js";
 
 /**
  * Třída se stará o UI aplikace
@@ -6,11 +7,13 @@ import { ThreeHourForecast } from "../Models/ThreeHourForecast.js";
 export default class WeatherAppView {
   //#region Fields
   private _dataToView: Array<ThreeHourForecast>;
+  private _city: City;
   //#endregion Fields
 
   //#region Constructors
-  constructor(dataToView: Array<ThreeHourForecast>) {
+  constructor(dataToView: Array<ThreeHourForecast>, city: City) {
     this._dataToView = dataToView;
+    this._city = city;
   }
   //#endregion Constructors
 
@@ -20,6 +23,11 @@ export default class WeatherAppView {
    */
   public render() {
     const listDiv = document.getElementById("list");
+    const h1Node = document.createElement("h1");
+    const h1TextNode = document.createTextNode(this._city.name);
+    h1Node.appendChild(h1TextNode);
+    listDiv.appendChild(h1Node);
+
     const ulNode = document.createElement("ul");
 
     this._dataToView.forEach((forecast) => {

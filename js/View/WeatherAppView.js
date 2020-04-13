@@ -4,8 +4,9 @@
 export default class WeatherAppView {
     //#endregion Fields
     //#region Constructors
-    constructor(dataToView) {
+    constructor(dataToView, city) {
         this._dataToView = dataToView;
+        this._city = city;
     }
     //#endregion Constructors
     //#region Methods
@@ -14,6 +15,10 @@ export default class WeatherAppView {
      */
     render() {
         const listDiv = document.getElementById("list");
+        const h1Node = document.createElement("h1");
+        const h1TextNode = document.createTextNode(this._city.name);
+        h1Node.appendChild(h1TextNode);
+        listDiv.appendChild(h1Node);
         const ulNode = document.createElement("ul");
         this._dataToView.forEach((forecast) => {
             const liNode = document.createElement("li");
