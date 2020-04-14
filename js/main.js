@@ -1,5 +1,6 @@
 import WeatherAppController from "./Controller/WeatherAppControler.js";
 import WeatherAppModel from "./Models/WeatherAppModel.js";
+import WeatherAppView from "./View/WeatherAppView.js";
 const cityName = "Praha";
 const RESOURCE_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=4a710277b41d7da791e44bf515bac6f7&units=metric`;
 /**
@@ -9,6 +10,6 @@ const RESOURCE_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityN
 async function createWeatherApp(url) {
     const model = new WeatherAppModel(url);
     await model.initialize();
-    const controller = new WeatherAppController(model);
+    const controller = new WeatherAppController(model, new WeatherAppView());
 }
 createWeatherApp(RESOURCE_URL);
