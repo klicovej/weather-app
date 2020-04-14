@@ -6,6 +6,8 @@ import FiveDayForecast from "./FiveDayForecast.js";
 export default class WeatherAppModel {
   //#region Fields
   private _url: string;
+  private _cityName: string;
+  private _units: string;
   private _forecast: FiveDayForecast;
   //#endregion Fields
 
@@ -17,11 +19,17 @@ export default class WeatherAppModel {
   set url(url: string) {
     this._url = url;
   }
+
+  set cityName(cityName: string) {
+    this._cityName = cityName;
+  }
   //#endregion Properties
 
   //#region Constructors
-  constructor(url: string) {
+  constructor(url: string, cityName: string, units = "metric") {
     this._url = url;
+    this._cityName = cityName;
+    this._units = units;
   }
   //#endregion Constructors
 
@@ -30,7 +38,8 @@ export default class WeatherAppModel {
    * Získá a nastaví předpověď počasí na 5 dní
    */
   public async initialize() {
-    const forecast = await this.fetchForecast(this._url);
+    const urlWithCityNameAndUnits = this._url.concat("&q=", this._cityName, "&units=", this._units);
+    const forecast = await this.fetchForecast(urlWithCityNameAndUnits);
     this._forecast = new FiveDayForecast(forecast);
   }
 

@@ -31,7 +31,7 @@ export default class WeatherAppController {
   public async handleSearchCity(cityName: string) {
     console.log("Handler v controlleru " + cityName);
 
-    this._model.url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=4a710277b41d7da791e44bf515bac6f7&units=metric`;
+    this._model.cityName = cityName;
     await this._model.initialize();
     console.log("Aktualni mesto: " + this._model.forecast.city.name);
 
