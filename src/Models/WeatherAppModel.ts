@@ -35,7 +35,7 @@ export default class WeatherAppModel {
 
   //#region Methods
   /**
-   * Získá a nastaví předpověď počasí na 5 dní
+   * Získá a nastaví předpověď počasí na 5 dní pro dané město a jednotku, ve které se zobrazuje teplota
    */
   public async initialize() {
     const urlWithCityNameAndUnits = this._url.concat("&q=", this._cityName, "&units=", this._units);
