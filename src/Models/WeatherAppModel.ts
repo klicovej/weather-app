@@ -16,10 +16,6 @@ export default class WeatherAppModel {
     return this._forecast;
   }
 
-  set url(url: string) {
-    this._url = url;
-  }
-
   set cityName(cityName: string) {
     this._cityName = cityName;
   }
