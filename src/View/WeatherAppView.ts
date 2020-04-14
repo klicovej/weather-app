@@ -10,7 +10,8 @@ export default class WeatherAppView {
   private _divElement: HTMLDivElement;
   private _cityNameInput: HTMLInputElement;
   private _searchButton: HTMLButtonElement;
-  private _searchDivElement: HTMLDivElement;
+
+  private _form: HTMLFormElement;
   //#endregion Fields
 
   //#region Properties
@@ -21,43 +22,40 @@ export default class WeatherAppView {
 
   //#region Constructors
   constructor() {
-    this._searchDivElement = document.createElement("div");
+    this._form = document.createElement("form");
+
     this._cityNameInput = document.createElement("input");
-    this._cityNameInput.placeholder = "Your city name";
     this._cityNameInput.type = "text";
-    this._cityNameInput.id = "city-name";
-    this._searchDivElement.appendChild(this._cityNameInput);
+    this._cityNameInput.placeholder = "Your city name";
 
     this._searchButton = document.createElement("button");
-    this._searchButton.type = "Button";
+    this._searchButton.type = "submit";
     this._searchButton.textContent = "Search";
-    this._searchButton.id = "search-button";
-    this._searchDivElement.appendChild(this._searchButton);
+
+    this._form.appendChild(this._cityNameInput);
+    this._form.appendChild(this._searchButton);
 
     this._divElement = document.createElement("div");
 
-    document.getElementsByTagName("body")[0].appendChild(this._searchDivElement);
+    document.getElementsByTagName("body")[0].appendChild(this._form);
     document.getElementsByTagName("body")[0].appendChild(this._divElement);
   }
   //#endregion Constructors
 
   //#region Methods
-  /**
-   * Vykreslí předpověď
-   */
-  public renderForecast(forecast: FiveDayForecast) {
+  public renderForecastsForCity(forecasts: Array<ThreeHourForecast>, city: City) {
     while (this._divElement.firstChild) {
       this._divElement.removeChild(this._divElement.firstChild);
     }
 
     const h1Node = document.createElement("h1");
-    const h1TextNode = document.createTextNode(forecast.city.name);
+    const h1TextNode = document.createTextNode(city.name);
     h1Node.appendChild(h1TextNode);
     this._divElement.appendChild(h1Node);
 
     const ulNode = document.createElement("ul");
 
-    forecast.getForecastsWithHighestTempForEveryDay().forEach((forecast) => {
+    forecasts.forEach((forecast) => {
       const liNode = document.createElement("li");
       const textNode = document.createTextNode(
         `Den: ${forecast.getDayName()} je nejvyšší teplota dne ${forecast.temp}`
@@ -69,10 +67,14 @@ export default class WeatherAppView {
     this._divElement.appendChild(ulNode);
   }
 
+  /**
+   * Odchytí událost změny názvu města a pošle ji do WeatherAppControlleru
+   * @param handler metoda WeatherAppControlleru, která si vyžádá nová data a překreslí View
+   */
   public bindSearchCity(handler) {
-    this._searchButton.addEventListener("click", (event) => {
+    this._form.addEventListener("submit", (event) => {
+      event.preventDefault();
       if (this.cityNameInput) {
-        console.log("Bind ve View: " + this.cityNameInput);
         handler(this.cityNameInput);
       }
     });
