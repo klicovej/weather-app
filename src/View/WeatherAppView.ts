@@ -7,11 +7,11 @@ import FiveDayForecast from "../Models/FiveDayForecast.js";
  */
 export default class WeatherAppView {
   //#region Fields
-  private _divElement: HTMLDivElement;
+  private _form: HTMLFormElement;
   private _cityNameInput: HTMLInputElement;
   private _searchButton: HTMLButtonElement;
 
-  private _form: HTMLFormElement;
+  private _divElement: HTMLDivElement;
   //#endregion Fields
 
   //#region Properties
@@ -43,6 +43,11 @@ export default class WeatherAppView {
   //#endregion Constructors
 
   //#region Methods
+  /**
+   * Vykreslí předpovědi pro zadané město
+   * @param {Array<ThreeHourForecast>} forecasts - pole předpovědí, které se mají vykreslit
+   * @param {City} city - město, pro které se předpověď vykresluje
+   */
   public renderForecastsForCity(forecasts: Array<ThreeHourForecast>, city: City) {
     while (this._divElement.firstChild) {
       this._divElement.removeChild(this._divElement.firstChild);
@@ -68,8 +73,8 @@ export default class WeatherAppView {
   }
 
   /**
-   * Odchytí událost změny názvu města a pošle ji do WeatherAppControlleru
-   * @param handler metoda WeatherAppControlleru, která si vyžádá nová data a překreslí View
+   * Odchytí událost vyhledání názvu města a nový název pošle do WeatherAppControlleru
+   * @param handler - metoda WeatherAppControlleru, která si na základě názvu města vyžádá nová data a překreslí UI
    */
   public bindSearchCity(handler) {
     this._form.addEventListener("submit", (event) => {

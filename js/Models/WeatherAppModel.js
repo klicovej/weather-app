@@ -19,7 +19,7 @@ export default class WeatherAppModel {
     //#endregion Constructors
     //#region Methods
     /**
-     * Načte do property '_forecast' předpověď na 5 dní
+     * Získá a nastaví předpověď počasí na 5 dní
      */
     async initialize() {
         const forecast = await this.fetchForecast(this._url);
