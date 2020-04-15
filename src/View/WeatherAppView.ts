@@ -1,6 +1,5 @@
-import { ThreeHourForecast } from "../Models/ThreeHourForecast.js";
-import { City } from "../Models/City.js";
-import FiveDayForecast from "../Models/FiveDayForecast.js";
+import { ThreeHourForecast } from "../Models/ThreeHourForecast";
+import { City } from "../Models/City";
 
 /**
  * Třída se stará o UI aplikace
@@ -76,7 +75,7 @@ export default class WeatherAppView {
    * Odchytí událost vyhledání názvu města a nový název pošle do WeatherAppControlleru
    * @param handler - metoda WeatherAppControlleru, která si na základě názvu města vyžádá nová data a překreslí UI
    */
-  public bindSearchCity(handler) {
+  public bindSearchCity(handler: any) {
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
       if (this.cityNameInput) {

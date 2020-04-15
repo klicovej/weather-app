@@ -1,5 +1,5 @@
-import WeatherAppModel from "../Models/WeatherAppModel.js";
-import WeatherAppView from "../View/WeatherAppView.js";
+import WeatherAppModel from "../Models/WeatherAppModel";
+import WeatherAppView from "../View/WeatherAppView";
 
 /**
  * Třída zajíšťující komunikaci mezi daty a UI aplikace
