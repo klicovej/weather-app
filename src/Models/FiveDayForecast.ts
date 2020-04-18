@@ -1,6 +1,6 @@
-import { ThreeHourForecast } from "./ThreeHourForecast";
-import { City } from "./City";
-import { groupArrByProperty, getMaxValuesFromGroupedArr } from "../Utils/array-utils";
+import { ThreeHourForecast } from "./ThreeHourForecast.js";
+import { City } from "./City.js";
+import { groupArrByProperty, getMaxValuesFromGroupedArr } from "../Utils/array-utils.js";
 
 /**
  * Třída reprezentující předpověď počasí na 5 dní, po 3 hodinách, pro dané město
