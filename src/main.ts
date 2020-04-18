@@ -1,6 +1,6 @@
 import WeatherAppController from "./Controller/WeatherAppControler.js";
 import WeatherAppModel from "./Models/WeatherAppModel.js";
-import WeatherAppView from "./View/WeatherAppView.js";
+import WeatherAppView from "./Views/WeatherAppView.js";
 
 const RESOURCE_URL: string =
   "https://api.openweathermap.org/data/2.5/forecast?&appid=4a710277b41d7da791e44bf515bac6f7&lang=CZ";

@@ -1,3 +1,4 @@
+import WeatherAppCard from "./CustomElements/WeatherAppCard.js";
 /**
  * Třída se stará o UI aplikace
  */
@@ -17,6 +18,7 @@ export default class WeatherAppView {
         this._divElement = document.createElement("div");
         document.getElementsByTagName("body")[0].appendChild(this._form);
         document.getElementsByTagName("body")[0].appendChild(this._divElement);
+        window.customElements.define("weather-app-card", WeatherAppCard);
     }
     //#endregion Fields
     //#region Properties
@@ -38,14 +40,23 @@ export default class WeatherAppView {
         const h1TextNode = document.createTextNode(city.name);
         h1Node.appendChild(h1TextNode);
         this._divElement.appendChild(h1Node);
-        const ulNode = document.createElement("ul");
         forecasts.forEach((forecast) => {
-            const liNode = document.createElement("li");
-            const textNode = document.createTextNode(`Den: ${forecast.getDayName()} je nejvyšší teplota dne ${forecast.temp}, popis počasí: ${forecast.weatherDescription}, rychlost větru: ${forecast.windSpeed}`);
-            liNode.appendChild(textNode);
-            ulNode.appendChild(liNode);
+            const weatherAppCard = document.createElement("weather-app-card");
+            const daySlot = document.createElement("div");
+            daySlot.setAttribute("slot", "day");
+            daySlot.innerHTML = forecast.getDayName();
+            const tempSlot = document.createElement("div");
+            tempSlot.setAttribute("slot", "temp");
+            tempSlot.innerHTML = `${forecast.temp}`;
+            const descSlot = document.createElement("div");
+            descSlot.setAttribute("slot", "description");
+            descSlot.innerHTML = `${forecast.weatherDescription}`;
+            const windSlot = document.createElement("div");
+            windSlot.setAttribute("slot", "wind");
+            windSlot.innerHTML = `${forecast.windSpeed}`;
+            weatherAppCard.append(daySlot, tempSlot, descSlot, windSlot);
+            this._divElement.appendChild(weatherAppCard);
         });
-        this._divElement.appendChild(ulNode);
     }
     /**
      * Odchytí událost vyhledání názvu města a nový název pošle do WeatherAppControlleru

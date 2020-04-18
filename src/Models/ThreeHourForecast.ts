@@ -11,7 +11,7 @@ export class ThreeHourForecast {
 
   //#region Properies
   get temp(): number {
-    return this._temp;
+    return Math.round(this._temp);
   }
 
   get date(): Date {
