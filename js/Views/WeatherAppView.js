@@ -11,8 +11,7 @@ export default class WeatherAppView {
         window.customElements.define("weather-app-search", WeatherAppSearch);
         this._weatherAppSearch = document.createElement("weather-app-search");
         this._divElement = document.createElement("div");
-        document.getElementsByTagName("body")[0].append(this._weatherAppSearch);
-        document.getElementsByTagName("body")[0].appendChild(this._divElement);
+        document.getElementsByTagName("body")[0].append(this._weatherAppSearch, this._divElement);
     }
     //#endregion Constructors
     //#region Methods
@@ -22,13 +21,16 @@ export default class WeatherAppView {
      * @param {City} city - město, pro které se předpověď vykresluje
      */
     renderForecastsForCity(forecasts, city) {
+        // Smaže všechny předcházející elementy
         while (this._divElement.firstChild) {
             this._divElement.removeChild(this._divElement.firstChild);
         }
+        // Vytvoří element s názvem města
         const h1Node = document.createElement("h1");
         const h1TextNode = document.createTextNode(city.name);
         h1Node.appendChild(h1TextNode);
         this._divElement.appendChild(h1Node);
+        // Vytvoří elementy <weather-app-card> zobrazující předpověd pro jednotlivé dny
         forecasts.forEach((forecast) => {
             const weatherAppCard = document.createElement("weather-app-card");
             const daySlot = document.createElement("div");
@@ -52,7 +54,7 @@ export default class WeatherAppView {
      * @param handler - metoda WeatherAppControlleru, která si na základě názvu města vyžádá nová data a překreslí UI
      */
     bindSearchCity(handler) {
-        this._weatherAppSearch.addEventListener("build", (event) => {
+        this._weatherAppSearch.addEventListener("searchSubmit", (event) => {
             event.preventDefault();
             if (event.detail) {
                 handler(event.detail);

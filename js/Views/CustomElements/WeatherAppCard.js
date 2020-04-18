@@ -12,6 +12,9 @@ template.innerHTML = `
     <h3><slot name="wind"/><</h3>
 </div>
 `;
+/**
+ * Třída reprezentující HTMLElement <weather-app-card>, který slouží pro zobrazení předpovědi počasí na 1 den
+ */
 export default class WeatherAppCard extends HTMLElement {
     constructor() {
         super();
