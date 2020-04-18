@@ -5,7 +5,7 @@ template.innerHTML = `
         color: coral;
     }  
 </style>
-<div class="weather-app-card">
+<div class="weather-app__card">
     <h2><slot name="day" /></h2>
     <h3><slot name="temp"/></h3>
     <h3><slot name="description"/><</h3>
