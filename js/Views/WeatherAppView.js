@@ -1,5 +1,6 @@
 import WeatherAppCard from "./CustomElements/WeatherAppCard.js";
 import WeatherAppSearch from "./CustomElements/WeatherAppSearch.js";
+import WeatherApp from "./CustomElements/WeatherApp.js";
 /**
  * Třída se stará o UI aplikace
  */
@@ -7,11 +8,11 @@ export default class WeatherAppView {
     //#endregion Fields
     //#region Constructors
     constructor() {
-        window.customElements.define("weather-app-card", WeatherAppCard);
+        window.customElements.define("weather-app", WeatherApp);
         window.customElements.define("weather-app-search", WeatherAppSearch);
-        this._weatherAppSearch = document.createElement("weather-app-search");
-        this._divElement = document.createElement("div");
-        document.getElementsByTagName("body")[0].append(this._weatherAppSearch, this._divElement);
+        window.customElements.define("weather-app-card", WeatherAppCard);
+        this._weatherApp = document.createElement("weather-app");
+        document.getElementsByTagName("body")[0].append(this._weatherApp);
     }
     //#endregion Constructors
     //#region Methods
@@ -22,15 +23,17 @@ export default class WeatherAppView {
      */
     renderForecastsForCity(forecasts, city) {
         // Smaže všechny předcházející elementy
-        while (this._divElement.firstChild) {
-            this._divElement.removeChild(this._divElement.firstChild);
+        while (this._weatherApp.firstChild) {
+            this._weatherApp.removeChild(this._weatherApp.firstChild);
         }
         // Vytvoří element s názvem města
-        const h1Node = document.createElement("h1");
-        const h1TextNode = document.createTextNode(city.name);
-        h1Node.appendChild(h1TextNode);
-        this._divElement.appendChild(h1Node);
+        const citySlot = document.createElement("div");
+        citySlot.setAttribute("slot", "city");
+        citySlot.innerHTML = city.name;
+        this._weatherApp.appendChild(citySlot);
         // Vytvoří elementy <weather-app-card> zobrazující předpověd pro jednotlivé dny
+        const cardsSlot = document.createElement("div");
+        cardsSlot.setAttribute("slot", "weather-app-cards");
         forecasts.forEach((forecast) => {
             const weatherAppCard = document.createElement("weather-app-card");
             const daySlot = document.createElement("div");
@@ -46,15 +49,16 @@ export default class WeatherAppView {
             windSlot.setAttribute("slot", "wind");
             windSlot.innerHTML = `${forecast.windSpeed}`;
             weatherAppCard.append(daySlot, tempSlot, descSlot, windSlot);
-            this._divElement.appendChild(weatherAppCard);
+            cardsSlot.appendChild(weatherAppCard);
         });
+        this._weatherApp.appendChild(cardsSlot);
     }
     /**
      * Odchytí událost vyhledání názvu města a nový název pošle do WeatherAppControlleru
      * @param handler - metoda WeatherAppControlleru, která si na základě názvu města vyžádá nová data a překreslí UI
      */
     bindSearchCity(handler) {
-        this._weatherAppSearch.addEventListener("searchSubmit", (event) => {
+        this._weatherApp.addEventListener("appSubmit", (event) => {
             event.preventDefault();
             if (event.detail) {
                 handler(event.detail);
