@@ -41,7 +41,7 @@ export default class WeatherAppView {
         const ulNode = document.createElement("ul");
         forecasts.forEach((forecast) => {
             const liNode = document.createElement("li");
-            const textNode = document.createTextNode(`Den: ${forecast.getDayName()} je nejvyšší teplota dne ${forecast.temp}`);
+            const textNode = document.createTextNode(`Den: ${forecast.getDayName()} je nejvyšší teplota dne ${forecast.temp}, popis počasí: ${forecast.weatherDescription}, rychlost větru: ${forecast.windSpeed}`);
             liNode.appendChild(textNode);
             ulNode.appendChild(liNode);
         });

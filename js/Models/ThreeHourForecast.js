@@ -4,9 +4,11 @@
 export class ThreeHourForecast {
     //#endregion Propeties
     //#region Constructors
-    constructor(temp, date) {
+    constructor(temp, date, weatherDescription, windSpeed) {
         this._temp = temp;
         this._date = new Date(date);
+        this._weatherDescription = weatherDescription;
+        this._windSpeed = windSpeed;
     }
     //#region Fields
     //#region Properies
@@ -15,6 +17,12 @@ export class ThreeHourForecast {
     }
     get date() {
         return this._date;
+    }
+    get weatherDescription() {
+        return this._weatherDescription;
+    }
+    get windSpeed() {
+        return this._windSpeed;
     }
     set date(date) {
         this._date = date;

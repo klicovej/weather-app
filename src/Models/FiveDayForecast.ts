@@ -20,7 +20,14 @@ export default class FiveDayForecast {
   //#region Constructors
   constructor(jsonObject: any) {
     for (let threeHourForecast of jsonObject.list) {
-      this._treeHourForecasts.push(new ThreeHourForecast(threeHourForecast.main.temp, threeHourForecast.dt_txt));
+      this._treeHourForecasts.push(
+        new ThreeHourForecast(
+          threeHourForecast.main.temp,
+          threeHourForecast.dt_txt,
+          threeHourForecast.weather[0].description,
+          threeHourForecast.wind.speed
+        )
+      );
     }
 
     this._city = new City(

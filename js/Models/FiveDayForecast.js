@@ -11,7 +11,7 @@ export default class FiveDayForecast {
         //#region Fields
         this._treeHourForecasts = new Array();
         for (let threeHourForecast of jsonObject.list) {
-            this._treeHourForecasts.push(new ThreeHourForecast(threeHourForecast.main.temp, threeHourForecast.dt_txt));
+            this._treeHourForecasts.push(new ThreeHourForecast(threeHourForecast.main.temp, threeHourForecast.dt_txt, threeHourForecast.weather[0].description, threeHourForecast.wind.speed));
         }
         this._city = new City(jsonObject.city.name, jsonObject.city.country, jsonObject.city.sunrise, jsonObject.city.sunset);
     }
