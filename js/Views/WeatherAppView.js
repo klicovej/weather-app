@@ -1,29 +1,18 @@
 import WeatherAppCard from "./CustomElements/WeatherAppCard.js";
+import WeatherAppSearch from "./CustomElements/WeatherAppSearch.js";
 /**
  * Třída se stará o UI aplikace
  */
 export default class WeatherAppView {
-    //#endregion Properties
+    //#endregion Fields
     //#region Constructors
     constructor() {
-        this._form = document.createElement("form");
-        this._cityNameInput = document.createElement("input");
-        this._cityNameInput.type = "text";
-        this._cityNameInput.placeholder = "Your city name";
-        this._searchButton = document.createElement("button");
-        this._searchButton.type = "submit";
-        this._searchButton.textContent = "Search";
-        this._form.appendChild(this._cityNameInput);
-        this._form.appendChild(this._searchButton);
-        this._divElement = document.createElement("div");
-        document.getElementsByTagName("body")[0].appendChild(this._form);
-        document.getElementsByTagName("body")[0].appendChild(this._divElement);
         window.customElements.define("weather-app-card", WeatherAppCard);
-    }
-    //#endregion Fields
-    //#region Properties
-    get cityNameInput() {
-        return this._cityNameInput.value;
+        window.customElements.define("weather-app-search", WeatherAppSearch);
+        this._weatherAppSearch = document.createElement("weather-app-search");
+        this._divElement = document.createElement("div");
+        document.getElementsByTagName("body")[0].append(this._weatherAppSearch);
+        document.getElementsByTagName("body")[0].appendChild(this._divElement);
     }
     //#endregion Constructors
     //#region Methods
@@ -63,10 +52,10 @@ export default class WeatherAppView {
      * @param handler - metoda WeatherAppControlleru, která si na základě názvu města vyžádá nová data a překreslí UI
      */
     bindSearchCity(handler) {
-        this._form.addEventListener("submit", (event) => {
+        this._weatherAppSearch.addEventListener("build", (event) => {
             event.preventDefault();
-            if (this.cityNameInput) {
-                handler(this.cityNameInput);
+            if (event.detail) {
+                handler(event.detail);
             }
         });
     }
