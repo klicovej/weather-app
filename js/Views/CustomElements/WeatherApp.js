@@ -4,7 +4,7 @@ template.innerHTML = `
     <weather-app-search></weather-app-search>
     <h1><slot name="city"></slot></h1>
     <div class="weather-app__cards">
-      <slot name="weather-app__card"></slot>
+      <slot name="weather-app-card"></slot>
     </div>
 </div>
 `;

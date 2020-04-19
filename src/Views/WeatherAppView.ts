@@ -65,32 +65,33 @@ export default class WeatherAppView {
     forecasts.forEach((forecast) => {
       // Vytvoří element <weather-app-card>
       const weatherAppCard = document.createElement("weather-app-card");
-      weatherAppCard.setAttribute("slot", "weather-app__card");
+      weatherAppCard.setAttribute("slot", "weather-app-card");
 
-      // Vytvoří element zobrazující název dne
-      const daySlot = document.createElement("textNode");
-      daySlot.setAttribute("slot", "day");
-      daySlot.innerHTML = forecast.getDayName();
-
-      // Vytvoří element zobrazující teplotu
-      const tempSlot = document.createElement("textNode");
-      tempSlot.setAttribute("slot", "temp");
-      tempSlot.innerHTML = `${forecast.temp}`;
-
-      // Vytvoří element zobrazující popis počasí
-      const descSlot = document.createElement("textNode");
-      descSlot.setAttribute("slot", "description");
-      descSlot.innerHTML = `${forecast.weatherDescription}`;
-
-      // Vytvoří element zobrazující rychlost větru
-      const windSlot = document.createElement("textNode");
-      windSlot.setAttribute("slot", "wind");
-      windSlot.innerHTML = `${forecast.windSpeed}`;
+      // Vytvoří <textnode> zobrazující název dne
+      const daySlot = this._createTextNodeSetSlotAndInnerHTML("day", forecast.getDayName());
+      // Vytvoří <textnode> zobrazující teplotu
+      const tempSlot = this._createTextNodeSetSlotAndInnerHTML("temp", `${forecast.temp}`);
+      // Vytvoří <textnode> zobrazující popis počasí
+      const descSlot = this._createTextNodeSetSlotAndInnerHTML("description", `${forecast.weatherDescription}`);
+      // Vytvoří <textnode> zobrazující rychlost větru
+      const windSlot = this._createTextNodeSetSlotAndInnerHTML("wind", `${forecast.windSpeed}`);
 
       // Všechny vytvořené elementy připojí k <weather-app-card>
       weatherAppCard.append(daySlot, tempSlot, descSlot, windSlot);
       this._weatherApp.appendChild(weatherAppCard);
     });
+  }
+
+  /**
+   * Vytvoří element <textnode> s danou hodnotou atributu 'slot' a 'innerHTML'
+   * @param slotName hodnota atributu 'slot'
+   * @param innerHTMLValue hodnota 'innerHTML'
+   */
+  private _createTextNodeSetSlotAndInnerHTML(slotName: string, innerHTMLValue: string) {
+    const textNodeElement = document.createElement("textNode");
+    textNodeElement.setAttribute("slot", slotName);
+    textNodeElement.innerHTML = innerHTMLValue;
+    return textNodeElement;
   }
 
   /**
