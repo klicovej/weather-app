@@ -16,6 +16,7 @@ template.innerHTML = `
  * Třída reprezentující HTMLElement <weather-app-card>, který slouží pro zobrazení předpovědi počasí na 1 den
  */
 export default class WeatherAppCard extends HTMLElement {
+    //#region Constructors
     constructor() {
         super();
         this.attachShadow({ mode: "open" });

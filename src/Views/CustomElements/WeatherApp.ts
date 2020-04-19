@@ -1,29 +1,45 @@
+import WeatherAppSearch from "./WeatherAppSearch";
+
 const template = document.createElement("template");
 template.innerHTML = `
 <div>
-    <h1><slot name="city" /></h1>
     <weather-app-search></weather-app-search>
-    <slot name="weather-app-cards"></slot>
+    <h1><slot name="city"></slot></h1>
+    <div class="weather-app__cards">
+      <slot name="weather-app__card"></slot>
+    </div>
 </div>
 `;
 
 /**
- * Třída reprezentující HTMLElement <weather-app>, který slouží pro zobrazení předpovědi počasí na 5 dní pro dané město
+ * Třída reprezentující HTMLElement <weather-app>, který zobrazuje vyhledávací pole s tlačítkem a také předpovědi počasí na 5 dní pro dané město
  */
 export default class WeatherApp extends HTMLElement {
+  //#region Fields
+  private _weatherAppSearch: WeatherAppSearch;
+  //#endregion Fields
+
+  //#region Constructors
   constructor() {
     super();
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this._weatherAppSearch = this.shadowRoot.querySelector("weather-app-search");
+  }
+  //#endregion Constructors
 
-    // Pokud 'weather-app-search' odchytí událost 'searchSubmit', vytvoří vlastní event a ten odešle
-    this.shadowRoot.querySelector("weather-app-search").addEventListener("searchSubmit", (event: CustomEvent) => {
-      event.preventDefault();
+  //#region Methods
+  connectedCallback() {
+    // Pokud 'weather-app-search' odchytí událost 'emptyInput' pošle událost, které vyvolá odstranění názvu města a předpovědí
+    this._weatherAppSearch.addEventListener("emptyInput", (event: CustomEvent) => {
+      this.dispatchEvent(new CustomEvent("emptyInput"));
+    });
 
-      const input = event.detail;
-      const customEvent = new CustomEvent("appSubmit", { detail: input });
-      this.dispatchEvent(customEvent);
+    // Pokud 'weather-app-search' odchytí událost 'searchSubmit', vytvoří vlastní event a ten odešle spolu s názvem města, pro které se má vyhledat předpověď
+    this._weatherAppSearch.addEventListener("searchSubmit", (event: CustomEvent) => {
+      this.dispatchEvent(new CustomEvent("searchSubmit", { detail: event.detail }));
     });
   }
+  //#endregion Methods
 }
