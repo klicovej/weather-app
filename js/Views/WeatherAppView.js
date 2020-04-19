@@ -14,7 +14,7 @@ export default class WeatherAppView {
         this._weatherApp = document.createElement("weather-app");
         document.getElementsByTagName("body")[0].append(this._weatherApp);
         this._weatherApp.addEventListener("emptyInput", (event) => {
-            this._removeCityNameAndForecasts();
+            this.removeCityNameAndForecasts();
         });
     }
     //#endregion Constructors
@@ -26,7 +26,7 @@ export default class WeatherAppView {
      */
     renderForecastsForCity(forecasts, city) {
         // Odstraní elementy s názvem města a předpovědi
-        this._removeCityNameAndForecasts();
+        this.removeCityNameAndForecasts();
         // Vytvoří element s názvem města a připojí ho k <weather-app>
         const cityTextNode = this._createTextNodeSetSlotAndInnerHTML("city", `${city.name}`);
         this._weatherApp.appendChild(cityTextNode);
@@ -36,7 +36,7 @@ export default class WeatherAppView {
     /**
      * Odstraní elementy s názvem města a jednotlivé předpovědi
      */
-    _removeCityNameAndForecasts() {
+    removeCityNameAndForecasts() {
         while (this._weatherApp.firstChild) {
             this._weatherApp.removeChild(this._weatherApp.firstChild);
         }

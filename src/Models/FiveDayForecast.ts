@@ -7,11 +7,16 @@ import { groupArrByProperty, getMaxValuesFromGroupedArr } from "../Utils/array-u
  */
 export default class FiveDayForecast {
   //#region Fields
+  private _cod: string;
   private _treeHourForecasts: Array<ThreeHourForecast> = new Array<ThreeHourForecast>();
   private _city: City;
   //#endregion Fields
 
   //#region Properties
+  get cod() {
+    return this._cod;
+  }
+
   get city(): City {
     return this._city;
   }
@@ -19,23 +24,27 @@ export default class FiveDayForecast {
 
   //#region Constructors
   constructor(jsonObject: any) {
-    for (let threeHourForecast of jsonObject.list) {
-      this._treeHourForecasts.push(
-        new ThreeHourForecast(
-          threeHourForecast.main.temp,
-          threeHourForecast.dt_txt,
-          threeHourForecast.weather[0].description,
-          threeHourForecast.wind.speed
-        )
+    this._cod = jsonObject.cod;
+
+    if (this._cod === "200") {
+      for (let threeHourForecast of jsonObject.list) {
+        this._treeHourForecasts.push(
+          new ThreeHourForecast(
+            threeHourForecast.main.temp,
+            threeHourForecast.dt_txt,
+            threeHourForecast.weather[0].description,
+            threeHourForecast.wind.speed
+          )
+        );
+      }
+
+      this._city = new City(
+        jsonObject.city.name,
+        jsonObject.city.country,
+        jsonObject.city.sunrise,
+        jsonObject.city.sunset
       );
     }
-
-    this._city = new City(
-      jsonObject.city.name,
-      jsonObject.city.country,
-      jsonObject.city.sunrise,
-      jsonObject.city.sunset
-    );
   }
   //#endregion Constructors
 

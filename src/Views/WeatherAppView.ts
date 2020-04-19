@@ -22,7 +22,7 @@ export default class WeatherAppView {
     document.getElementsByTagName("body")[0].append(this._weatherApp);
 
     this._weatherApp.addEventListener("emptyInput", (event: CustomEvent) => {
-      this._removeCityNameAndForecasts();
+      this.removeCityNameAndForecasts();
     });
   }
   //#endregion Constructors
@@ -35,7 +35,7 @@ export default class WeatherAppView {
    */
   public renderForecastsForCity(forecasts: Array<ThreeHourForecast>, city: City) {
     // Odstraní elementy s názvem města a předpovědi
-    this._removeCityNameAndForecasts();
+    this.removeCityNameAndForecasts();
 
     // Vytvoří element s názvem města a připojí ho k <weather-app>
     const cityTextNode = this._createTextNodeSetSlotAndInnerHTML("city", `${city.name}`);
@@ -48,7 +48,7 @@ export default class WeatherAppView {
   /**
    * Odstraní elementy s názvem města a jednotlivé předpovědi
    */
-  private _removeCityNameAndForecasts() {
+  public removeCityNameAndForecasts() {
     while (this._weatherApp.firstChild) {
       this._weatherApp.removeChild(this._weatherApp.firstChild);
     }

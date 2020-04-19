@@ -8,15 +8,20 @@ export default class FiveDayForecast {
     //#endregion Properties
     //#region Constructors
     constructor(jsonObject) {
-        //#region Fields
         this._treeHourForecasts = new Array();
-        for (let threeHourForecast of jsonObject.list) {
-            this._treeHourForecasts.push(new ThreeHourForecast(threeHourForecast.main.temp, threeHourForecast.dt_txt, threeHourForecast.weather[0].description, threeHourForecast.wind.speed));
+        this._cod = jsonObject.cod;
+        if (this._cod === "200") {
+            for (let threeHourForecast of jsonObject.list) {
+                this._treeHourForecasts.push(new ThreeHourForecast(threeHourForecast.main.temp, threeHourForecast.dt_txt, threeHourForecast.weather[0].description, threeHourForecast.wind.speed));
+            }
+            this._city = new City(jsonObject.city.name, jsonObject.city.country, jsonObject.city.sunrise, jsonObject.city.sunset);
         }
-        this._city = new City(jsonObject.city.name, jsonObject.city.country, jsonObject.city.sunrise, jsonObject.city.sunset);
     }
     //#endregion Fields
     //#region Properties
+    get cod() {
+        return this._cod;
+    }
     get city() {
         return this._city;
     }

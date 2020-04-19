@@ -33,12 +33,17 @@ export default class WeatherAppController {
 
     this._model.cityName = cityName;
     await this._model.initialize();
-    console.log("Aktualni mesto: " + this._model.forecast.city.name);
 
-    this._view.renderForecastsForCity(
-      this._model.forecast.getForecastsWithHighestTempForEveryDay(),
-      this._model.forecast.city
-    );
+    if (this._model.forecast.cod === "200") {
+      console.log("Aktualni mesto: " + this._model.forecast.city.name);
+      this._view.renderForecastsForCity(
+        this._model.forecast.getForecastsWithHighestTempForEveryDay(),
+        this._model.forecast.city
+      );
+    } else {
+      console.log(cityName + " neexistuje ty analfabete");
+      this._view.removeCityNameAndForecasts();
+    }
   }
   //#endregion Methods
 }
