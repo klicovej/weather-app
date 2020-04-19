@@ -30,8 +30,10 @@ export default class WeatherAppSearch extends HTMLElement {
 
   //#region Methods
   connectedCallback() {
-    // Pokud 'search-form' odchytí událost 'submit' vytvoří vlastní event a ten odešle
-    // - pokud nebyl do inputu zadán žádný text, tak navíc zobrazí label s chybovou zprávou
+    /**
+     * Když 'search-form' odchytí událost 'submit' vytvoří vlastní event a ten odešle
+     * Pokud nebyl do inputu zadán žádný text, tak navíc zobrazí label s chybovou zprávou
+     */
     this.shadowRoot.getElementById("search-form").addEventListener("submit", (event) => {
       event.preventDefault();
 
