@@ -25,12 +25,10 @@ export default class WeatherAppView {
      * @param {City} city - město, pro které se předpověď vykresluje
      */
     renderForecastsForCity(forecasts, city) {
-        // Odstraní název města a předpovědi
+        // Odstraní elementy s názvem města a předpovědi
         this._removeCityNameAndForecasts();
         // Vytvoří element s názvem města a připojí ho k <weather-app>
-        const cityTextNode = document.createElement("textNode");
-        cityTextNode.innerText = `${city.name}`;
-        cityTextNode.setAttribute("slot", "city");
+        const cityTextNode = this._createTextNodeSetSlotAndInnerHTML("city", `${city.name}`);
         this._weatherApp.appendChild(cityTextNode);
         // Vytvoří elementy <weather-app-card> a připojí je k <weather-app>
         this._createWeatherAppCards(forecasts);
