@@ -54,19 +54,19 @@ export default class WeatherAppView {
             const weatherAppCard = document.createElement("weather-app-card");
             weatherAppCard.setAttribute("slot", "weather-app__card");
             // Vytvoří element zobrazující název dne
-            const daySlot = document.createElement("div");
+            const daySlot = document.createElement("textNode");
             daySlot.setAttribute("slot", "day");
             daySlot.innerHTML = forecast.getDayName();
             // Vytvoří element zobrazující teplotu
-            const tempSlot = document.createElement("div");
+            const tempSlot = document.createElement("textNode");
             tempSlot.setAttribute("slot", "temp");
             tempSlot.innerHTML = `${forecast.temp}`;
             // Vytvoří element zobrazující popis počasí
-            const descSlot = document.createElement("div");
+            const descSlot = document.createElement("textNode");
             descSlot.setAttribute("slot", "description");
             descSlot.innerHTML = `${forecast.weatherDescription}`;
             // Vytvoří element zobrazující rychlost větru
-            const windSlot = document.createElement("div");
+            const windSlot = document.createElement("textNode");
             windSlot.setAttribute("slot", "wind");
             windSlot.innerHTML = `${forecast.windSpeed}`;
             // Všechny vytvořené elementy připojí k <weather-app-card>
