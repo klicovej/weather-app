@@ -15,6 +15,7 @@ export default class WeatherAppView {
         document.getElementsByTagName("body")[0].append(this._weatherApp);
         this._weatherApp.addEventListener("emptyInput", (event) => {
             this.removeCityNameAndForecasts();
+            this.createErrorMessage(event.detail);
         });
     }
     //#endregion Constructors
@@ -40,6 +41,14 @@ export default class WeatherAppView {
         while (this._weatherApp.firstChild) {
             this._weatherApp.removeChild(this._weatherApp.firstChild);
         }
+    }
+    /**
+     * Nastaví elementu <weather-app> chybovou zprávu
+     * @param errorMessage chybová zpráva
+     */
+    createErrorMessage(errorMessage) {
+        const errorMessageSlot = this._createTextNodeSetSlotAndInnerHTML("errorMessage", errorMessage);
+        this._weatherApp.appendChild(errorMessageSlot);
     }
     /**
      * Vytvoří elementy <weather-app-card> zobrazující den, teplotu, popis počasí a rychlost větru

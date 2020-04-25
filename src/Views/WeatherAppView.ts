@@ -23,6 +23,7 @@ export default class WeatherAppView {
 
     this._weatherApp.addEventListener("emptyInput", (event: CustomEvent) => {
       this.removeCityNameAndForecasts();
+      this.createErrorMessage(event.detail);
     });
   }
   //#endregion Constructors
@@ -40,7 +41,6 @@ export default class WeatherAppView {
     // Vytvoří element s názvem města a připojí ho k <weather-app>
     const cityTextNode = this._createTextNodeSetSlotAndInnerHTML("city", `${city.name}`);
     this._weatherApp.appendChild(cityTextNode);
-
     // Vytvoří elementy <weather-app-card> a připojí je k <weather-app>
     this._createWeatherAppCards(forecasts);
   }
@@ -52,6 +52,15 @@ export default class WeatherAppView {
     while (this._weatherApp.firstChild) {
       this._weatherApp.removeChild(this._weatherApp.firstChild);
     }
+  }
+
+  /**
+   * Nastaví elementu <weather-app> chybovou zprávu
+   * @param errorMessage chybová zpráva
+   */
+  public createErrorMessage(errorMessage: string) {
+    const errorMessageSlot = this._createTextNodeSetSlotAndInnerHTML("errorMessage", errorMessage);
+    this._weatherApp.appendChild(errorMessageSlot);
   }
 
   /**

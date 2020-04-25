@@ -3,16 +3,14 @@ template.innerHTML = `
   <form id="search-form">
       <input type="text" placeholder="Název hledaného města">
       <button type="submit">Hledat</button><br>
-      <label></label> 
   </form>
 `;
 
 /**
- * Třída reprezentující HTMLElement <weather-app-search>, který slouží pro zobrazení pole a tlačítka pro vyhledání města, zobrazuje i label při chybě
+ * Třída reprezentující HTMLElement <weather-app-search>, který slouží pro zobrazení pole a tlačítka pro vyhledání města
  */
 export default class WeatherAppSearch extends HTMLElement {
   //#region Fields
-  private _label: HTMLLabelElement;
   private _input: HTMLInputElement;
   //#endregion Fields
 
@@ -23,7 +21,6 @@ export default class WeatherAppSearch extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this._label = this.shadowRoot.querySelector("label");
     this._input = this.shadowRoot.querySelector("input");
   }
   //#endregion Constructors
@@ -31,18 +28,16 @@ export default class WeatherAppSearch extends HTMLElement {
   //#region Methods
   connectedCallback() {
     /**
-     * Když 'search-form' odchytí událost 'submit' vytvoří vlastní event a ten odešle
-     * Pokud nebyl do inputu zadán žádný text, tak navíc zobrazí label s chybovou zprávou
+     * Když 'search-form' odchytí událost 'submit' vytvoří vlastní event a ten odešle.
+     * V případě, že do inputu byla zadána hodnota, tak pošle i ji.
      */
     this.shadowRoot.getElementById("search-form").addEventListener("submit", (event) => {
       event.preventDefault();
 
       const inputValue = this._input.value;
       if (inputValue === "") {
-        this._label.textContent = "Vyplň město, který chceš vyhledat bráško";
         this.dispatchEvent(new CustomEvent("emptyInput"));
       } else {
-        this._label.textContent = "";
         this.dispatchEvent(new CustomEvent("searchSubmit", { detail: inputValue }));
       }
     });

@@ -25,8 +25,8 @@ export default class WeatherAppController {
             this._view.renderForecastsForCity(this._model.forecast.getForecastsWithHighestTempForEveryDay(), this._model.forecast.city);
         }
         else {
-            console.log(cityName + " neexistuje ty analfabete");
             this._view.removeCityNameAndForecasts();
+            this._view.createErrorMessage(`Pro město s názvem '${cityName}' se nepodařilo najít předpověď.`);
         }
     }
 }

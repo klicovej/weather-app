@@ -2,6 +2,7 @@ const template = document.createElement("template");
 template.innerHTML = `
 <div>
     <weather-app-search></weather-app-search>
+    <h3><slot name="errorMessage"></slot></h3>
     <h1><slot name="city"></slot></h1>
     <div class="weather-app__cards">
       <slot name="weather-app-card"></slot>
@@ -23,9 +24,9 @@ export default class WeatherApp extends HTMLElement {
     //#endregion Constructors
     //#region Methods
     connectedCallback() {
-        // Pokud 'weather-app-search' odchytí událost 'emptyInput' pošle událost, které vyvolá odstranění názvu města a předpovědí
+        // Pokud 'weather-app-search' odchytí událost 'emptyInput' pošle událost, které vyvolá odstranění názvu města a předpovědí a nastaví chybovou hlášku
         this._weatherAppSearch.addEventListener("emptyInput", (event) => {
-            this.dispatchEvent(new CustomEvent("emptyInput"));
+            this.dispatchEvent(new CustomEvent("emptyInput", { detail: "Vyplň název města bráško." }));
         });
         // Pokud 'weather-app-search' odchytí událost 'searchSubmit', vytvoří vlastní event a ten odešle spolu s názvem města, pro které se má vyhledat předpověď
         this._weatherAppSearch.addEventListener("searchSubmit", (event) => {
