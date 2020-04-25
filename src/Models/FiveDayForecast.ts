@@ -13,7 +13,7 @@ export default class FiveDayForecast {
   //#endregion Fields
 
   //#region Properties
-  get cod() {
+  get cod(): string {
     return this._cod;
   }
 

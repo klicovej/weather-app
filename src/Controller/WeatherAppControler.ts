@@ -29,13 +29,10 @@ export default class WeatherAppController {
    * @param {string} cityName - název města, pro které se má zjistit předpověď
    */
   public async handleSearchCity(cityName: string) {
-    console.log("Handler v controlleru " + cityName);
-
     this._model.cityName = cityName;
     await this._model.initialize();
 
     if (this._model.forecast.cod === "200") {
-      console.log("Aktualni mesto: " + this._model.forecast.city.name);
       this._view.renderForecastsForCity(
         this._model.forecast.getForecastsWithHighestTempForEveryDay(),
         this._model.forecast.city
