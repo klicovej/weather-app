@@ -1,4 +1,4 @@
-import FiveDayForecast from "./FiveDayForecast.js";
+import FiveDayForecast from "./FiveDayForecast";
 
 /**
  * Třída pro získání a práci s daty, která získala z dané URL

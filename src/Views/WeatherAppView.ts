@@ -1,8 +1,8 @@
-import { ThreeHourForecast } from "../Models/ThreeHourForecast.js";
-import { City } from "../Models/City.js";
-import WeatherAppCard from "./CustomElements/WeatherAppCard.js";
-import WeatherAppSearch from "./CustomElements/WeatherAppSearch.js";
-import WeatherApp from "./CustomElements/WeatherApp.js";
+import { ThreeHourForecast } from "../Models/ThreeHourForecast";
+import { City } from "../Models/City";
+import WeatherAppCard from "./CustomElements/WeatherAppCard";
+import WeatherAppSearch from "./CustomElements/WeatherAppSearch";
+import WeatherApp from "./CustomElements/WeatherApp";
 
 /**
  * Třída se stará o UI aplikace
