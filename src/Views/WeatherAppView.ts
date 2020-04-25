@@ -110,5 +110,15 @@ export default class WeatherAppView {
       handler(event.detail);
     });
   }
+
+  /**
+   * Odchytí událost pro zjištění aktuální polohy a následně překreslí UI
+   * @param handler metoda WeatherAppControlleru, která vyvolá zjištění aktuální polohy a následně překreslení UI
+   */
+  public bindGetGeolocation(handler) {
+    this._weatherApp.addEventListener("getGeolocation", (event) => {
+      handler();
+    });
+  }
   //#endregion Methods
 }

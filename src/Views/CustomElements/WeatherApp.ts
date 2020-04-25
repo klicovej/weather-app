@@ -32,14 +32,19 @@ export default class WeatherApp extends HTMLElement {
 
   //#region Methods
   connectedCallback() {
-    // Pokud 'weather-app-search' odchytí událost 'emptyInput' pošle událost, které vyvolá odstranění názvu města a předpovědí a nastaví chybovou hlášku
+    // Pokud <weather-app-search> odchytí událost 'emptyInput' pošle událost, které vyvolá odstranění názvu města a předpovědí a nastaví chybovou hlášku
     this._weatherAppSearch.addEventListener("emptyInput", (event: CustomEvent) => {
       this.dispatchEvent(new CustomEvent("emptyInput", { detail: "Vyplň název města bráško." }));
     });
 
-    // Pokud 'weather-app-search' odchytí událost 'searchSubmit', vytvoří vlastní event a ten odešle spolu s názvem města, pro které se má vyhledat předpověď
+    // Pokud <weather-app-search> odchytí událost 'searchSubmit', vytvoří vlastní event a ten odešle spolu s názvem města, pro které se má vyhledat předpověď
     this._weatherAppSearch.addEventListener("searchSubmit", (event: CustomEvent) => {
       this.dispatchEvent(new CustomEvent("searchSubmit", { detail: event.detail }));
+    });
+
+    // Pokud< weather-app-search> odchytí událost 'getGeolocation', vytvoří vlastní event, který vyvolá zjištění aktuální polohy
+    this._weatherAppSearch.addEventListener("getGeolocation", (event: CustomEvent) => {
+      this.dispatchEvent(new CustomEvent("getGeolocation"));
     });
   }
   //#endregion Methods

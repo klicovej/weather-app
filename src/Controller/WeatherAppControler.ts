@@ -16,6 +16,8 @@ export default class WeatherAppController {
     this._view = view;
 
     this._view.bindSearchCity(this.handleSearchCity.bind(this));
+    this._view.bindGetGeolocation(this.handleGetGeolocation.bind(this));
+
     this._view.renderForecastsForCity(
       this._model.forecast.getForecastsWithHighestTempForEveryDay(),
       this._model.forecast.city
@@ -41,6 +43,13 @@ export default class WeatherAppController {
       this._view.removeCityNameAndForecasts();
       this._view.createErrorMessage(`Pro město s názvem '${cityName}' se nepodařilo najít předpověď.`);
     }
+  }
+
+  /**
+   * Zjistí aktuální polohy a vyhledá podle ní předpověď a následně překreslí UI
+   */
+  public handleGetGeolocation() {
+    console.log("sem handler more");
   }
   //#endregion Methods
 }

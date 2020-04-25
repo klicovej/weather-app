@@ -2,7 +2,8 @@ const template = document.createElement("template");
 template.innerHTML = `
   <form id="search-form">
       <input type="text" placeholder="Název hledaného města">
-      <button type="submit">Hledat</button><br>
+      <button type="submit">Hledat</button>
+      <button id="location">Geo lokace</button>
   </form>
 `;
 
@@ -27,6 +28,14 @@ export default class WeatherAppSearch extends HTMLElement {
 
   //#region Methods
   connectedCallback() {
+    /**
+     * Po kliknutí na <button> s id="location" dojde k odeslání vlastního eventu, který vyvolá zjištění aktuální polohy
+     */
+    this.shadowRoot.getElementById("location").addEventListener("click", (event) => {
+      event.preventDefault();
+      this.dispatchEvent(new CustomEvent("getGeolocation"));
+    });
+
     /**
      * Když 'search-form' odchytí událost 'submit' vytvoří vlastní event a ten odešle.
      * V případě, že do inputu byla zadána hodnota, tak pošle i ji.
