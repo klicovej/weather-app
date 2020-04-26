@@ -47,6 +47,7 @@ export default class WeatherAppSearch extends HTMLElement {
       if (inputValue === "") {
         this.dispatchEvent(new CustomEvent("emptyInput"));
       } else {
+        this._input.value = "";
         this.dispatchEvent(new CustomEvent("searchSubmit", { detail: inputValue }));
       }
     });
