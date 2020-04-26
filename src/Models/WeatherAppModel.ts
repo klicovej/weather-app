@@ -8,6 +8,8 @@ export default class WeatherAppModel {
   private _url: string;
   private _cityName: string;
   private _units: string;
+  private _latitude: string;
+  private _longitude: string;
   private _forecast: FiveDayForecast;
   //#endregion Fields
 
@@ -18,6 +20,14 @@ export default class WeatherAppModel {
 
   set cityName(cityName: string) {
     this._cityName = cityName;
+  }
+
+  set latitude(latitude: string) {
+    this._latitude = latitude;
+  }
+
+  set longitude(longitude: string) {
+    this._longitude = longitude;
   }
   //#endregion Properties
 
@@ -31,11 +41,17 @@ export default class WeatherAppModel {
 
   //#region Methods
   /**
-   * Získá a nastaví předpověď počasí na 5 dní pro dané město a jednotku, ve které se zobrazuje teplota
+   * Získá a nastaví předpověď počasí na 5 dní pro dané město nebo polohu a jednotky, ve které se zobrazuje teplota
    */
-  public async initialize() {
-    const urlWithCityNameAndUnits = this._url.concat("&q=", this._cityName, "&units=", this._units);
-    const forecast = await this.fetchForecast(urlWithCityNameAndUnits);
+  public async initialize(initializeByCityName = true) {
+    let resultUrl = "";
+
+    if (initializeByCityName) {
+      resultUrl = this._url.concat("&q=", this._cityName, "&units=", this._units);
+    } else {
+      resultUrl = this._url.concat("&lat=", this._latitude, "&lon=", this._longitude, "&units=", this._units);
+    }
+    const forecast = await this.fetchForecast(resultUrl);
     this._forecast = new FiveDayForecast(forecast);
   }
 

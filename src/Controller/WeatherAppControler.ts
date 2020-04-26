@@ -34,6 +34,47 @@ export default class WeatherAppController {
     this._model.cityName = cityName;
     await this._model.initialize();
 
+    this._checkForecastStatusAndRenderUI(cityName);
+  }
+
+  /**
+   * Zjistí aktuální polohu a vyhledá podle ní předpověď a následně překreslí UI.
+   * V případě, že se poloha nepodaří zjistit je vypsána chybová hláška.
+   */
+  public handleGetGeolocation() {
+    if (!navigator.geolocation) {
+      this._view.removeCityNameAndForecasts();
+      this._view.createErrorMessage("Ve vašem prohlížeči není zjištění aktuální polohy podporováno.");
+    } else {
+      navigator.geolocation.getCurrentPosition(this._success.bind(this), this._error.bind(this));
+    }
+  }
+
+  /**
+   * V případě nalezení aktuální polohy vyvolá zjištění předpovědi
+   * @param position objekt typu GeolocationPosition
+   */
+  private async _success(position) {
+    this._model.latitude = position.coords.latitude;
+    this._model.longitude = position.coords.longitude;
+
+    await this._model.initialize(false);
+
+    this._checkForecastStatusAndRenderUI();
+  }
+
+  /**
+   * V případě nenalezení aktuální polohy nastaví chybovou hlášku
+   */
+  private _error() {
+    this._view.removeCityNameAndForecasts();
+    this._view.createErrorMessage("Pro vaši aktuální polohu se nepodařilo najít předpověď.");
+  }
+
+  /**
+   * Ověří, zda byla nalezena předpověď, pokud ano překreslí UI, pokud ne zobrazí chybovou zprávou
+   */
+  private _checkForecastStatusAndRenderUI(cityName = "") {
     if (this._model.forecast.cod === "200") {
       this._view.renderForecastsForCity(
         this._model.forecast.getForecastsWithHighestTempForEveryDay(),
@@ -43,13 +84,6 @@ export default class WeatherAppController {
       this._view.removeCityNameAndForecasts();
       this._view.createErrorMessage(`Pro město s názvem '${cityName}' se nepodařilo najít předpověď.`);
     }
-  }
-
-  /**
-   * Zjistí aktuální polohy a vyhledá podle ní předpověď a následně překreslí UI
-   */
-  public handleGetGeolocation() {
-    console.log("sem handler more");
   }
   //#endregion Methods
 }
