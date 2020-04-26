@@ -34,7 +34,7 @@ export default class WeatherAppController {
     this._model.cityName = cityName;
     await this._model.initialize();
 
-    this._checkForecastStatusAndRenderUI(cityName);
+    this._checkForecastStatusAndRenderUI(`Pro město s názvem '${cityName}' se napodařilo najít předpověď.`);
   }
 
   /**
@@ -60,7 +60,7 @@ export default class WeatherAppController {
 
     await this._model.initialize(false);
 
-    this._checkForecastStatusAndRenderUI();
+    this._checkForecastStatusAndRenderUI("Pro vaši aktuální polohu se nepodařilo najít předpověď.");
   }
 
   /**
@@ -74,7 +74,7 @@ export default class WeatherAppController {
   /**
    * Ověří, zda byla nalezena předpověď, pokud ano překreslí UI, pokud ne zobrazí chybovou zprávou
    */
-  private _checkForecastStatusAndRenderUI(cityName = "") {
+  private _checkForecastStatusAndRenderUI(errorMessage: string) {
     if (this._model.forecast.cod === "200") {
       this._view.renderForecastsForCity(
         this._model.forecast.getForecastsWithHighestTempForEveryDay(),
@@ -82,7 +82,7 @@ export default class WeatherAppController {
       );
     } else {
       this._view.removeCityNameAndForecasts();
-      this._view.createErrorMessage(`Pro město s názvem '${cityName}' se nepodařilo najít předpověď.`);
+      this._view.createErrorMessage(errorMessage);
     }
   }
   //#endregion Methods
